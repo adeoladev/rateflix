@@ -1,0 +1,62 @@
+
+.card {
+    width: 50%;
+}
+
+.source {
+    width:30px;
+}
+
+.progress {
+    margin-bottom:5px;
+}
+
+#mainForm {
+    text-align:center;
+    width: 50%;
+}
+
+#movieYear {
+    color:grey;
+    font-weight:lighter;
+}
+
+#logo {
+    width: 150px;
+    margin-bottom: 20px; 
+}
+
+#poster {
+    width: 120px;
+    height: 178px;
+    float: left;
+    margin-right: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-size: cover;
+}
+
+#mainbox {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction:column;
+}
+
+.noCard {
+    display:none !important;
+}
+
+.noMovie {
+    background-color:#FFDDDD !important;
+}
+
+#basic-addon1 {
+    color:#6B6B6B;
+}
+
+#basic-addon1:hover {
+    cursor:pointer;
+}
+
