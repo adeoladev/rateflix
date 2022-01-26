@@ -25,6 +25,7 @@ $modal = "#ratingsModal";
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 
+
 <div id='mainbox'>
 
 
@@ -135,7 +136,7 @@ $modal = "#ratingsModal";
 
 <!------------------------MOVIE BOX------------------------->
 <form id='mainForm' @submit.prevent="submitForm">
-<img id='logo' src='images/logo.png'><br>
+<img id='logo' src='https://i.postimg.cc/Y2fDDJhm/logo.png'><br>
 <div class="input-group mb-3">
 <span class='input-group-text' <?php echo $loggedIn ?> id='basic-addon1'><?php echo $username ?></span>
 <input type="text" v-model="inputTitle" v-bind:class="{ noMovie: error2 }" class="form-control" placeholder="Movie Title" aria-label="Username" aria-describedby="basic-addon1">
@@ -151,21 +152,34 @@ $modal = "#ratingsModal";
   <div v-bind:style="{backgroundImage: 'url(' + moviePoster + ')'}" id='poster'></div>
     <h5 id='movieTitle' class="card-title">{{ movieTitle }} <span id='movieYear'>{{ movieYear }}</span></h5>
 
+    <div class='preProgress'>
+    <p class='progSource'>Rotten Tomatoes <strong>{{ rottenTomatoes }}</strong></p>
     <div class="progress">
-    <div class="progress-bar bg-danger" role="progressbar" v-bind:style="{width: rottenTomatoes}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span style='text-align:left;'> Rotten Tomatoes <strong>{{ rottenTomatoes }}</strong></span></div>
+    <div class="progress-bar bg-danger" role="progressbar" v-bind:style="{width: rottenTomatoes}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
     </div>
 
+    <div class='preProgress'>
+    <p class='progSource'>IMDB <strong>{{ imdb }}%</strong></p>
     <div class="progress">
-    <div class="progress-bar bg-warning" role="progressbar" v-bind:style="{width: imdb+'%'}" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span style='text-align:left;'> IMDB <strong>{{ imdb }}%</strong></span></div>
+    <div class="progress-bar bg-warning" role="progressbar" v-bind:style="{width: imdb+'%'}" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
     </div>
 
+    <div class='preProgress'>
+    <p class='progSource'>Metacritic <strong>{{ metacritic }}%</strong></p>
     <div class="progress">
-    <div class="progress-bar bg-success" role="progressbar" v-bind:style="{width: metacritic+'%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span style='text-align:left;'> Metacritic <strong>{{ metacritic }}%</strong></span></div>
+    <div class="progress-bar bg-success" role="progressbar" v-bind:style="{width: metacritic+'%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
     </div>
 
+    <div class='preProgress'>
+    <p class='progSource'>Rateflix <strong>{{ rateflix }}%</strong></p>
     <div class="progress">
-    <div class="progress-bar" role="progressbar" v-bind:style="{width: rateflix+'%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span style='text-align:left;'> Rateflix <strong>{{ rateflix }}%</strong></span></div>
+    <div class="progress-bar" role="progressbar" v-bind:style="{width: rateflix+'%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
+    </div>
+
     <br>
     <a href="#" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="<?php echo $modal ?>">Rate</a>
   </div>
@@ -173,105 +187,5 @@ $modal = "#ratingsModal";
 </div>
 <!-------------------------------------------------------->
 
-
-
-<script>
-
-var application = new Vue({
-    el: '#mainbox',
-    data: {
-      inputTitle:'',
-      inputYear:'',
-      moviePoster:'',
-      yearProcessed:'',
-      movieTitle:'',
-      movieYear:'',
-      movieID:'',
-      rottenTomatoes:'0',
-      imdb:'0',
-      metacritic:'10',
-      rateflix:100,
-      error: true,
-      error2: false,
-      username: '',
-      password: '',
-      userRating: 0,
-    },
-    methods: {
-        submitForm:function() {
-        
-        if (this.inputYear !== '') {
-        this.yearProcessed = "&y="+this.inputYear;
-        } else {
-        this.yearProcessed = '';
-        }
-        this.fetchdata();
-        },
-
-        fetchdata:function() {
-            const that = this;
-            axios.request('https://www.omdbapi.com/?apikey=6576687f&t='+this.inputTitle+this.yearProcessed).then(function (response) {
-            if (response.data.Response !== 'False') {
-            that.error = false;
-            that.error2 = false;
-            //console.log(response.data);
-            that.moviePoster = response.data.Poster;
-            that.movieTitle = response.data.Title;
-            that.movieYear = response.data.Year;
-            that.rottenTomatoes = response.data.Ratings[1].Value;
-            that.metacritic = response.data.Metascore;
-            that.imdb = response.data.imdbRating * 10;
-            that.movieID = response.data.imdbID;
-
-            } else {
-            that.error = true;
-            that.error2 = true;
-            }
-
-        }).catch(function (error) {
-	          console.log(error);
-        });
-
-        axios.request('core/rating.php?movie='+this.movieID).then(function (response) {
-            that.rateflix = response.data.rating;
-        }).catch(function (error) {
-	          console.log(error);
-            that.rateflix = 100;
-        });
-
-        },
-
-        signUp:function() {
-            const that = this;
-            axios.post('core/signup.php?username='+this.username+'&password='+this.password).then(function () {
-            alert('Account Created!');
-            that.username = '';
-            that.password = '';
-        }).catch(function (error) {
-	          alert('Username is taken!');
-        }); 
-        },
-
-        signIn:function() {
-            axios.post('core/signin.php?username='+this.username+'&password='+this.password).then(function () {
-            alert('Signed in!');
-            location.reload();
-        }).catch(function (error) {
-	          alert('Incorrect Username or Password!');
-        });
-        },
-
-        rateMovie:function() {
-            axios.post('core/rate.php?username=<?php echo $username ?>&rating='+this.userRating+'&movie='+this.movieID).then(function () {
-            alert('Movie Rated!');
-        }).catch(function (error) {
-	          alert('Error');
-        });
-        }
-
-    },
-
-});
-
-
-</script>
+<script type="text/javascript">var username = "<?php echo $username ?>";</script>
+<script type="text/javascript" src="script.js"></script>
