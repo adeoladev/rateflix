@@ -10,7 +10,7 @@ $result = $conn->query($sql);
 $num = mysqli_num_rows($result);
 
 if ($num == 0) {
-header("HTTP/1.0 404 No Rateflix Ratings");
+header("HTTP/1.0 404 No Rateflix Ratings.");
 exit();
 } else {
 
@@ -28,6 +28,5 @@ $return_data=array('rating'=>$final);
 header('Content-Type: application/json');
 echo json_encode($return_data);
 }
-
 
 ?>
