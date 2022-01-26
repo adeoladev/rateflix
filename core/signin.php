@@ -8,8 +8,11 @@ require 'connect.php';
     $result = $conn->query("SELECT * FROM users WHERE username='$username'") or die($conn->error);
     $user = $result->fetch_assoc();
 
-    if ($result->num_rows == 0) {
-      header("HTTP/1.0 404 Account Does Not Exist");
+    if (empty($username) || empty($password)) {
+      header("HTTP/1.0 404 Error: You missed a spot.");
+      exit(); 
+    } else if ($result->num_rows == 0) {
+      header("HTTP/1.0 404 Error: Account Does Not Exist.");
       exit();
     } 
     
@@ -21,10 +24,8 @@ require 'connect.php';
       exit();
 
     } else {
-      header("HTTP/1.0 404 Sign In Error");
+      header("HTTP/1.0 404 Error: Incorrect Password.");
       exit();
     }
     
-
-
 ?>
