@@ -9,8 +9,11 @@ require 'connect.php';
     
     $result = $conn->query("SELECT * FROM users WHERE username='$username'") or die($conn->error);
     
-    if ($result->num_rows>0) {
-      header("HTTP/1.0 404 Username is taken");
+    if (empty($username) || empty($password)) {
+      header("HTTP/1.0 404 Error: You missed a spot.");
+      exit(); 
+    } else if ($result->num_rows>0) {
+      header("HTTP/1.0 404 Error: Username is taken.");
       exit();
     } else {
       $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
@@ -25,7 +28,5 @@ require 'connect.php';
       header("HTTP/1.0 200 Success");
       exit();
     }
-    
-
 
 ?>
