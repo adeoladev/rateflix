@@ -60,3 +60,30 @@
     cursor:pointer;
 }
 
+.progSource {
+    position: absolute;
+    margin-top: -1px;
+    color: white;
+    left: 151;
+}
+
+.preProgress {
+    height: 1 rem;
+    font-size: .75rem;
+    border-radius: 0.25 rem;
+    width: 100%;
+    left: 148px;
+}
+
+.progress {
+    background-color:#E9ECEF !important;
+}
+
+@media (max-width: 780px) {
+#mainForm {
+    width:80%;
+}
+.card {
+    width: 80%;
+}
+}
