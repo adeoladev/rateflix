@@ -184,6 +184,8 @@ $modal = "#ratingsModal";
     <a href="#" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="<?php echo $modal ?>">Rate</a>
   </div>
 </div>
+  
+<a href='https://github.com/adeoladev/rateflix' target='_blank'><img style='width:30px' src='images/github.png'></a> 
 </div>
 <!-------------------------------------------------------->
 
