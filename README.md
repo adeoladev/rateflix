@@ -8,4 +8,4 @@ Movies without any Rateflix ratings will have a score of 100% by default. You ca
 Movie data is provided by the [OMDB API](http://www.omdbapi.com/).
 
 ## License
-MIT. Copyright (c) 2021 Adeola Boye.
+MIT. Copyright (c) 2022 Adeola Boye.
