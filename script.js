@@ -92,6 +92,12 @@ var application = new Vue({
         }).catch(function (error) {
 	        alert(error.response.statusText);
         });
+        },
+	refresh:function() {
+            const that = this;
+            that.error = true;
+            that.inputTitle = '',
+            that.inputYear = ''
         }
 
     },
