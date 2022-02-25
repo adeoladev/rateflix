@@ -12,7 +12,7 @@ var application = new Vue({
       rottenTomatoes:'0',
       imdb:'0',
       metacritic:'10',
-      rateflix:100,
+      rateflix:0,
       error: true,
       error2: false,
       username: '',
@@ -51,7 +51,7 @@ var application = new Vue({
                 that.rateflix = response.data.rating;
                 return response;
             }).catch(function (error) {
-                that.rateflix = 100;
+                that.rateflix = 0;
             });
             }
 
