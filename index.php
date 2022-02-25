@@ -136,7 +136,7 @@ $modal = "#ratingsModal";
 
 <!------------------------MOVIE BOX------------------------->
 <form id='mainForm' @submit.prevent="submitForm">
-<img id='logo' src='images/logo.png'><br>
+<img id='logo' v-on:click="refresh" src='images/logo.png'><br>
 <div class="input-group mb-3">
 <span class='input-group-text' <?php echo $loggedIn ?> id='basic-addon1'><?php echo $username ?></span>
 <input type="text" v-model="inputTitle" v-bind:class="{ noMovie: error2 }" class="form-control" placeholder="Movie Title" aria-label="Username" aria-describedby="basic-addon1">
