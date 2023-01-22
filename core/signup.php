@@ -17,8 +17,8 @@ require 'connect.php';
       exit();
     } else {
       $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
-      $stmt = $conn->prepare("INSERT INTO users (username, password, date) VALUES (?,?,?)");
-      $stmt->bind_param("sss", $username, $hashedPwd, $sqldate);
+      $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?,?)");
+      $stmt->bind_param("ss", $username, $hashedPwd);
 
       $stmt->execute();
       $stmt->close();
