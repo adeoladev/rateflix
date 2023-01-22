@@ -67,7 +67,7 @@ var application = new Vue({
 
         signUp:function() {
             const that = this;
-            axios.post('https://gamergoal/rateflix/core/signup.php?username='+this.username+'&password='+this.password).then(function () {
+            axios.post('https://gamergoal.net/rateflix/core/signup.php?username='+this.username+'&password='+this.password).then(function () {
             alert('Account Created!');
             that.username = '';
             that.password = '';
