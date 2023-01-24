@@ -1,8 +1,8 @@
-![Rateflix](https://i.postimg.cc/63CNRN5b/logo.png)
+![Rateflix](https://i.postimg.cc/y8ZJ4T0j/logo.png)
 
-Click [here](https://adeoladev.github.io/rateflix) to use Rateflix.
+[https://adeoladev.github.io/rateflix](https://adeoladev.github.io/rateflix)
 
-Search for any movie and immediately view the relevant RottenTomatoes, IMDB and Metacritic scores. The app has its own score system too, and you can add to it by making an account and submiting your own rating. 
+This project makes it much easier and faster to view official movie ratings, and submit your own ratings. 
 
 Movie data is provided by the [OMDB API](http://www.omdbapi.com/).
 

@@ -1,5 +1,5 @@
 <?php
-
+header("Access-Control-Allow-Origin: *");
 require 'connect.php';
 
     $username = mysqli_real_escape_string($conn,$_GET['username']);
@@ -10,10 +10,14 @@ require 'connect.php';
     $result = $conn->query("SELECT * FROM users WHERE username='$username'") or die($conn->error);
     
     if (empty($username) || empty($password)) {
-      header("HTTP/1.0 404 Error: You missed a spot.");
+      $data = array("message" => "You missed a spot.");
+      header("Content-Type: application/json");
+      echo json_encode($data);
       exit(); 
     } else if ($result->num_rows>0) {
-      header("HTTP/1.0 404 Error: Username is taken.");
+      $data = array("message" => "Username is taken.");
+      header("Content-Type: application/json");
+      echo json_encode($data);
       exit();
     } else {
       $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
@@ -25,7 +29,9 @@ require 'connect.php';
 
       $conn->close();
 
-      header("HTTP/1.0 200 Success");
+      $data = array("message" => "Sign up successful.");
+      header("Content-Type: application/json");
+      echo json_encode($data);
       exit();
     }
 

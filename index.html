@@ -32,10 +32,14 @@
       <label for="exampleFormControlInput2" class="form-label">Password</label>
       <input type="password" v-model="password" class="form-control" id="exampleFormControlInput2">
       </div>
+
+      <div id='message' v-bind:style="{ display: showMessage }" class="alert alert-primary" role="alert">
+       {{ message }}
+      </div>
       </div>
 
       <div class="modal-footer">
-      <button type="button" v-on:click="signUp" class="btn btn-secondary" data-bs-dismiss="modal">Sign Up</button>
+      <button type="button" v-on:click="signUp" class="btn btn-secondary">Sign Up</button>
       <button type="button" v-on:click="signIn" class="btn btn-primary">Sign In</button>
       </div>
 
@@ -120,7 +124,7 @@
 
 <!------------------------MOVIE BOX------------------------->
 <form id='mainForm' @submit.prevent="submitForm">
-<img id='logo' v-on:click="refresh" src='images/logo.png'><br>
+<a href='/rateflix'><img id='logo' src='images/logo.png'></a><br>
 <div class="input-group mb-3">
 <span class='input-group-text accountBtn' v-on:click="openAccount" id='basic-addon1'>{{ displayUsername }}</span>
 <input type="text" v-model="inputTitle" v-bind:class="{ noMovie: error2 }" class="form-control" placeholder="Movie Title" aria-label="Username" aria-describedby="basic-addon1">

@@ -1,5 +1,5 @@
 <?php
-
+header("Access-Control-Allow-Origin: *");
 require 'connect.php';
 
 $movie = $_GET['movie'];
@@ -24,9 +24,9 @@ $avg = $average * 10;
 $final = round($avg, 0);
 
 
-$return_data=array('rating'=>$final);
+$data=array('rating'=>$final);
 header('Content-Type: application/json');
-echo json_encode($return_data);
+echo json_encode($data);
 }
 
 ?>

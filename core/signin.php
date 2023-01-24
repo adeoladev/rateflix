@@ -1,5 +1,5 @@
 <?php
-
+header("Access-Control-Allow-Origin: *");
 require 'connect.php';
 
     $username = mysqli_real_escape_string($conn,$_GET['username']);
@@ -9,22 +9,27 @@ require 'connect.php';
     $user = $result->fetch_assoc();
 
     if (empty($username) || empty($password)) {
-      header("HTTP/1.0 404 Error: You missed a spot.");
+      $data = array("message" => "You missed a spot.");
+      header("Content-Type: application/json");
+      echo json_encode($data);
       exit(); 
     } else if ($result->num_rows == 0) {
-      header("HTTP/1.0 404 Error: Account Does Not Exist.");
+      $data = array("message" => "Incorrect username or password.");
+      header("Content-Type: application/json");
+      echo json_encode($data);
       exit();
     } 
     
     if (password_verify($password, $user['password'])) {
-      session_start();
-        
-      $_SESSION['username'] = $user['username'];
-      header("HTTP/1.0 200 Success");
+      $data = array("message" => "Sign in successful.");
+      header("Content-Type: application/json");
+      echo json_encode($data);
       exit();
 
     } else {
-      header("HTTP/1.0 404 Error: Incorrect Password.");
+      $data = array("message" => "Incorrect username or password.");
+      header("Content-Type: application/json");
+      echo json_encode($data);
       exit();
     }
     

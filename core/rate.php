@@ -1,5 +1,5 @@
 <?php
-
+header("Access-Control-Allow-Origin: *");
 require 'connect.php';
 session_start();
 
@@ -8,10 +8,7 @@ $username = $_GET['username'];
 $movie = $_GET['movie'];
 $date = date("F j, Y h:i a");
 
-if (!isset($_SESSION['username'])) {
-    header("HTTP/1.0 404 Not logged in.");
-    exit();
-} else if ($rating > 10 || $rating < 0 || empty($rating)) {
+if ($rating > 10 || $rating < 0 || empty($rating)) {
     header("HTTP/1.0 404 Incorrect Values.");
     exit(); 
 }

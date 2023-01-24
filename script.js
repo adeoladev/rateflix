@@ -18,6 +18,8 @@ var application = new Vue({
       displayUsername: 'Account',
       password: '',
       userRating: 0,
+      showMessage: '',
+      message: '',
     },
     methods: {
         submitForm:function() {
@@ -46,11 +48,11 @@ var application = new Vue({
             setTimeout(rateflixRating, 200);
 
             function rateflixRating() {
-            axios.request('core/rating.php?movie='+that.movieID).then(function (response) {
-                that.rateflix = response.data.rating;
-                return response;
+            axios.request('https://gamergoal.net/rateflix/core/rating.php?movie='+that.movieID).then(function (response) {
+            that.rateflix = response.data.rating;
+            return response;
             }).catch(function (error) {
-                that.rateflix = 0;
+            that.rateflix = 0;
             });
             }
 
@@ -60,54 +62,53 @@ var application = new Vue({
             }
 
         }).catch(function (error) {
-	          console.log(error);
+            console.log(error);
         });
 
         },
 
         signUp:function() {
             const that = this;
-            axios.post('https://gamergoal.net/rateflix/core/signup.php?username='+this.username+'&password='+this.password).then(function () {
-            alert('Account Created!');
-            that.username = '';
-            that.password = '';
+            axios.post('https://gamergoal.net/rateflix/core/signup.php?username='+this.username+'&password='+this.password).then(function (response) {
+            that.showMessage = 'block';
+            that.message = response.data.message;
+            if(that.message == "Sign up successful.") {
+            document.cookie = "rateflix="+that.username;
+            location.reload();
+            }
         }).catch(function (error) {
-	        alert(error.response.statusText);
+	        console.log(error);
         }); 
         },
 
         signIn:function() {
             const that = this;
-            axios.post('core/signin.php?username='+this.username+'&password='+this.password).then(function () {
+            axios.post('https://gamergoal.net/rateflix/core/signin.php?username='+this.username+'&password='+this.password).then(function (response) {
+            that.showMessage = 'block';
+            that.message = response.data.message;
+            if(that.message == "Sign in successful.") {
             document.cookie = "rateflix="+that.username;
-            alert('Signed In!');
             location.reload();
+            }
         }).catch(function (error) {
-            alert(error.response.statusText);
+            console.log(error);
         });
         },
 
         rateMovie:function() {
             const that = this;
-            axios.post('core/rate.php?username='+this.username+'&rating='+this.userRating+'&movie='+this.movieID).then(function (response) {
+            axios.post('https://gamergoal.net/rateflix/core/rate.php?username='+this.username+'&rating='+this.userRating+'&movie='+this.movieID).then(function (response) {
 
-            axios.request('core/rating.php?movie='+that.movieID).then(function (response) {
-                that.rateflix = response.data.rating;
-                return response;
+            axios.request('https://gamergoal.net/rateflix/core/rating.php?movie='+that.movieID).then(function (response) {
+            that.rateflix = response.data.rating;
+            return response;
             }).catch(function (error) {
-                that.rateflix = 0;
+            that.rateflix = 0;
             });
 
         }).catch(function (error) {
-	        alert(error.response.statusText);
+	        console.log(error);
         });
-        },
-
-	    refresh:function() {
-            const that = this;
-            that.error = true;
-            that.inputTitle = '',
-            that.inputYear = ''
         },
 
         openRating:function() {
