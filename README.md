@@ -1,8 +1,8 @@
-![Rateflix](https://i.postimg.cc/y8ZJ4T0j/logo.png)
+<img src="https://raw.githubusercontent.com/adeoladev/rateflix/main/images/logo.png" width="150">
 
 [https://adeoladev.github.io/rateflix](https://adeoladev.github.io/rateflix)
 
-The easiest and fastest way to view official movie ratings.
+An easier and faster way to view official movie ratings.
 
 ## License
 MIT. Copyright (c) 2022 Adeola Boye.
