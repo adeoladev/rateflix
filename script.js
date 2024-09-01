@@ -48,7 +48,7 @@ var application = new Vue({
             setTimeout(rateflixRating, 200);
 
             function rateflixRating() {
-            axios.request('yourserver/core/rating.php?movie='+that.movieID).then(function (response) {
+            axios.request('https://gamergoal.net/rateflix/core/rating.php?movie='+that.movieID).then(function (response) {
             that.rateflix = response.data.rating;
             return response;
             }).catch(function (error) {
@@ -69,7 +69,7 @@ var application = new Vue({
 
         signUp:function() {
             const that = this;
-            axios.post('yourserver/core/signup.php?username='+this.username+'&password='+this.password).then(function (response) {
+            axios.post('https://gamergoal.net/rateflix/core/signup.php?username='+this.username+'&password='+this.password).then(function (response) {
             that.showMessage = 'block';
             that.message = response.data.message;
             if(that.message == "Sign up successful.") {
@@ -83,7 +83,7 @@ var application = new Vue({
 
         signIn:function() {
             const that = this;
-            axios.post('yourserver/core/signin.php?username='+this.username+'&password='+this.password).then(function (response) {
+            axios.post('https://gamergoal.net/rateflix/core/signin.php?username='+this.username+'&password='+this.password).then(function (response) {
             that.showMessage = 'block';
             that.message = response.data.message;
             if(that.message == "Sign in successful.") {
@@ -97,9 +97,9 @@ var application = new Vue({
 
         rateMovie:function() {
             const that = this;
-            axios.post('yourserver/core/rate.php?username='+this.username+'&rating='+this.userRating+'&movie='+this.movieID).then(function (response) {
+            axios.post('https://gamergoal.net/rateflix/core/rate.php?username='+this.username+'&rating='+this.userRating+'&movie='+this.movieID).then(function (response) {
 
-            axios.request('yourserver/core/rating.php?movie='+that.movieID).then(function (response) {
+            axios.request('https://gamergoal.net/rateflix/core/rating.php?movie='+that.movieID).then(function (response) {
             that.rateflix = response.data.rating;
             return response;
             }).catch(function (error) {
