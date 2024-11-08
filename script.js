@@ -40,11 +40,18 @@ var application = new Vue({
             that.error2 = false;
             that.moviePoster = response.data.Poster;
             that.movieTitle = response.data.Title;
+            that.movieID = response.data.imdbID;
+            if (response.data.Type == 'movie') {
             that.movieYear = response.data.Year;
             that.rottenTomatoes = response.data.Ratings[1].Value;
             that.metacritic = response.data.Metascore;
             that.imdb = response.data.imdbRating * 10;
-            that.movieID = response.data.imdbID;
+            } else {
+            that.rottenTomatoes = '0%';
+            that.metacritic = 0;
+            that.imdb = response.data.imdbRating * 10;
+            that.movieYear = response.data.Released.slice(7) + " ("+response.data.totalSeasons+" Seasons)";
+            }
             setTimeout(rateflixRating, 200);
 
             function rateflixRating() {
