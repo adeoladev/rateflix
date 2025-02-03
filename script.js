@@ -8,6 +8,7 @@ var application = new Vue({
       movieTitle:'',
       movieYear:'',
       movieID:'',
+      movieDescription:'',
       rottenTomatoes:'0',
       imdb:'0',
       metacritic:'10',
@@ -41,6 +42,7 @@ var application = new Vue({
             that.moviePoster = response.data.Poster;
             that.movieTitle = response.data.Title;
             that.movieID = response.data.imdbID;
+            that.movieDescription = response.data.Plot;
             if (response.data.Type == 'movie') {
             that.movieYear = response.data.Year;
             that.rottenTomatoes = response.data.Ratings[1].Value;
@@ -130,6 +132,10 @@ var application = new Vue({
             if (!document.cookie.split(';').some((item) => item.trim().startsWith('rateflix='))) {
                 $("#accountModal").modal('show');
             }
+        },
+
+        openDescription:function() {
+            $("#infoModal").modal('show');
         }
     },
 

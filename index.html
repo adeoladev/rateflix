@@ -49,78 +49,24 @@
 <!------------------------------------->
 
 
-<!-------------RATINGS MODAL------------->
-<div class="modal fade" id="ratingsModal" tabindex="-1" aria-labelledby="ratingsModalLabel" aria-hidden="true">
+<!-------------INFO MODAL------------->
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="ratingsModalLabel">Rate {{ movieTitle }}</h5>
+        <h5 class="modal-title" id="infoModalLabel">{{ movieTitle }} <span id='movieYear'>{{ movieYear }}</span></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body" style='display:flex;justify-content: space-evenly;'>
-
-      <div class="form-check">
-      <input class="form-check-input" v-model="userRating" type="radio" name="userRating" v-bind:value="1" id="flexRadioDefault1">
-      <label class="form-check-label" for="flexRadioDefault1">1</label>
-      </div>
-
-      <div class="form-check">
-      <input class="form-check-input" v-model="userRating" type="radio" name="userRating" v-bind:value="2" id="flexRadioDefault2">
-      <label class="form-check-label" for="flexRadioDefault2">2</label>
-      </div>
-
-      <div class="form-check">
-      <input class="form-check-input" v-model="userRating" type="radio" name="userRating" v-bind:value="3" id="flexRadioDefault3">
-      <label class="form-check-label" for="flexRadioDefault3">3</label>
-      </div>
-
-      <div class="form-check">
-      <input class="form-check-input" v-model="userRating" type="radio" name="userRating" v-bind:value="4" id="flexRadioDefault4">
-      <label class="form-check-label" for="flexRadioDefault4">4</label>
-      </div>
-
-      <div class="form-check">
-      <input class="form-check-input" v-model="userRating" type="radio" name="userRating" v-bind:value="5" id="flexRadioDefault5">
-      <label class="form-check-label" for="flexRadioDefault5">5</label>
-      </div>
-
-      <div class="form-check">
-      <input class="form-check-input" v-model="userRating" type="radio" name="userRating" v-bind:value="6" id="flexRadioDefault6">
-      <label class="form-check-label" for="flexRadioDefault6">6</label>
-      </div>
-
-      <div class="form-check">
-      <input class="form-check-input" v-model="userRating" type="radio" name="userRating" v-bind:value="7" id="flexRadioDefault7">
-      <label class="form-check-label" for="flexRadioDefault7">7</label>
-      </div>
-
-      <div class="form-check">
-      <input class="form-check-input" v-model="userRating" type="radio" name="userRating" v-bind:value="8" id="flexRadioDefault8">
-      <label class="form-check-label" for="flexRadioDefault8">8</label>
-      </div>
-
-      <div class="form-check">
-      <input class="form-check-input" v-model="userRating" type="radio" name="userRating" v-bind:value="9" id="flexRadioDefault9">
-      <label class="form-check-label" for="flexRadioDefault9">9</label>
-      </div>
-
-      <div class="form-check">
-      <input class="form-check-input" v-model="userRating" type="radio" name="userRating" v-bind:value="10" id="flexRadioDefault10">
-      <label class="form-check-label" for="flexRadioDefault10">10</label>
+        {{ movieDescription }}
+        <br>
       </div>
 
       </div>
-
-      <div class="modal-footer">
-      <button type="button" v-on:click="rateMovie" class="btn btn-secondary" data-bs-dismiss="modal">Submit</button>
-      </div>
-
     </div>
   </div>
-</div>
-<!------------------------------------->
-
+  <!------------------------------------->
 
 <!------------------------MOVIE BOX------------------------->
 <form id='mainForm' @submit.prevent="submitForm">
@@ -137,7 +83,8 @@
 
 <div v-bind:class="{ noCard: error }" class='card' > 
   <div class="card-body">
-  <div v-bind:style="{backgroundImage: 'url(' + moviePoster + ')'}" id='poster'></div>
+    <p data-bs-toggle="modal" data-bs-target="#exampleModal" id="infoButton" v-on:click="openDescription">&#9432;</p>
+    <div v-bind:style="{backgroundImage: 'url(' + moviePoster + ')'}" id='poster'></div>
     <h5 id='movieTitle' class="card-title">{{ movieTitle }} <span id='movieYear'>{{ movieYear }}</span></h5>
 
     <div class='preProgress'>
