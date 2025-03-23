@@ -1,8 +1,3 @@
-.card {
-    width: 50%;
-    margin-bottom: 20px;
-}
-
 #infoButton {
     top: 1px;
     position: absolute;
@@ -12,12 +7,12 @@
     cursor: pointer;
 }
 
-.source {
-    width:30px;
+#shareButton {
+    display:none;
 }
 
-.progress {
-    margin-bottom:5px;
+.source {
+    width:30px;
 }
 
 #mainForm {
@@ -57,12 +52,14 @@
     flex-direction:column;
 }
 
-.noCard {
-    display:none !important;
+#cardContainer {
+    display:none;
+    width: 50%;
+    margin-bottom: 20px;
 }
 
-.noMovie {
-    background-color:#FFDDDD !important;
+#errorContainer {
+    display:none;
 }
 
 #basic-addon1 {
@@ -90,6 +87,15 @@
 
 .progress {
     background-color:#DDE1E6 !important;
+    margin-bottom:5px;
+}
+
+.progress-bar {
+    transition-delay: 250ms !important;
+}​
+
+h1 {
+    color:black;
 }
 
 #message {
@@ -100,7 +106,16 @@
 #mainForm {
     width:80%;
 }
-.card {
+#cardContainer {
     width: 80%;
 }
+#shareButton {
+    display:block;
 }
+#infoButton {
+    top:-4px;
+    font-size:30px;
+}
+}
+
+

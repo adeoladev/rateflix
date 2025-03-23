@@ -9,7 +9,7 @@ require 'connect.php';
     $user = $result->fetch_assoc();
 
     if (empty($username) || empty($password)) {
-      $data = array("message" => "You missed a spot.");
+      $data = array("message" => "Please complete the form.");
       header("Content-Type: application/json");
       echo json_encode($data);
       exit(); 

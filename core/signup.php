@@ -10,12 +10,12 @@ require 'connect.php';
     $result = $conn->query("SELECT * FROM users WHERE username='$username'") or die($conn->error);
     
     if (empty($username) || empty($password)) {
-      $data = array("message" => "You missed a spot.");
+      $data = array("message" => "Please complete the form.");
       header("Content-Type: application/json");
       echo json_encode($data);
       exit(); 
     } else if ($result->num_rows>0) {
-      $data = array("message" => "Username is taken.");
+      $data = array("message" => "That username is taken.");
       header("Content-Type: application/json");
       echo json_encode($data);
       exit();

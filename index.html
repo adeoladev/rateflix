@@ -14,11 +14,11 @@
 
 
 <!-------------SIGN IN/UP MODAL------------->
-<div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
+<div class="modal fade" id="signInModal" tabindex="-1" aria-labelledby="signInModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="accountModalLabel">Account</h5>
+        <h5 class="modal-title" id="signInModalLabel">Account</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
@@ -58,7 +58,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-      <div class="modal-body" style='display:flex;justify-content: space-evenly;'>
+      <div class="modal-body d-flex justify-content-evenly">
         {{ movieDescription }}
         <br>
       </div>
@@ -68,22 +68,99 @@
   </div>
   <!------------------------------------->
 
+  <!-------------ACCOUNT MODAL------------->
+<div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="accountModalLabel">{{ displayUsername }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" v-on:click="signOut" class="btn btn-secondary">Sign Out</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!------------------------------------->
+
+  <!-------------RATINGS MODAL------------->
+<div class="modal fade" id="ratingsModal" tabindex="-1" aria-labelledby="ratingsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ratingsModalLabel">Rate {{ movieTitle }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-evenly">
+      <div class="form-check">
+      <input class="form-check-input" v-model="userRating" type="radio" name="userRating" v-bind:value="1" id="flexRadioDefault1">
+      <label class="form-check-label" for="flexRadioDefault1">1</label>
+      </div>
+      <div class="form-check">
+      <input class="form-check-input" v-model="userRating" type="radio" name="userRating" v-bind:value="2" id="flexRadioDefault2">
+      <label class="form-check-label" for="flexRadioDefault2">2</label>
+      </div>
+      <div class="form-check">
+      <input class="form-check-input" v-model="userRating" type="radio" name="userRating" v-bind:value="3" id="flexRadioDefault3">
+      <label class="form-check-label" for="flexRadioDefault3">3</label>
+      </div>
+      <div class="form-check">
+      <input class="form-check-input" v-model="userRating" type="radio" name="userRating" v-bind:value="4" id="flexRadioDefault4">
+      <label class="form-check-label" for="flexRadioDefault4">4</label>
+      </div>
+      <div class="form-check">
+      <input class="form-check-input" v-model="userRating" type="radio" name="userRating" v-bind:value="5" id="flexRadioDefault5">
+      <label class="form-check-label" for="flexRadioDefault5">5</label>
+      </div>
+      <div class="form-check">
+      <input class="form-check-input" v-model="userRating" type="radio" name="userRating" v-bind:value="6" id="flexRadioDefault6">
+      <label class="form-check-label" for="flexRadioDefault6">6</label>
+      </div>
+      <div class="form-check">
+      <input class="form-check-input" v-model="userRating" type="radio" name="userRating" v-bind:value="7" id="flexRadioDefault7">
+      <label class="form-check-label" for="flexRadioDefault7">7</label>
+      </div>
+      <div class="form-check">
+      <input class="form-check-input" v-model="userRating" type="radio" name="userRating" v-bind:value="8" id="flexRadioDefault8">
+      <label class="form-check-label" for="flexRadioDefault8">8</label>
+      </div>
+      <div class="form-check">
+      <input class="form-check-input" v-model="userRating" type="radio" name="userRating" v-bind:value="9" id="flexRadioDefault9">
+      <label class="form-check-label" for="flexRadioDefault9">9</label>
+      </div>
+      <div class="form-check">
+      <input class="form-check-input" v-model="userRating" type="radio" name="userRating" v-bind:value="10" id="flexRadioDefault10">
+      <label class="form-check-label" for="flexRadioDefault10">10</label>
+      </div>
+      </div>
+      <div class="modal-footer">
+      <button type="button" v-on:click="rateMovie" class="btn btn-secondary" data-bs-dismiss="modal">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!------------------------------------->
+
 <!------------------------MOVIE BOX------------------------->
 <form id='mainForm' @submit.prevent="submitForm">
 <a href='/rateflix'><img id='logo' src='images/logo.png'></a><br>
 <div class="input-group mb-3">
 <span class='input-group-text accountBtn' v-on:click="openAccount" id='basic-addon1'>{{ displayUsername }}</span>
-<input type="text" v-model="inputTitle" v-bind:class="{ noMovie: error2 }" class="form-control" placeholder="Movie/Series Title" aria-label="Username" aria-describedby="basic-addon1">
-<input type="text" v-model="inputYear" class="form-control" placeholder="Year (optional)" aria-label="Username" aria-describedby="basic-addon1">
+<input type="text" v-model="inputTitle" class="form-control" placeholder="Movie/Series Title" aria-label="Username" aria-describedby="basic-addon1">
+<input type="text" v-model="inputYear" class="form-control" placeholder="Year (optional)" minlength="4" maxlength="4" aria-label="Username" aria-describedby="basic-addon1">
 <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
 </div>
 </form>
 
 <br>
 
-<div v-bind:class="{ noCard: error }" class='card' > 
+<div id="cardContainer" v-bind:class="{ 'd-block': result }">
+<div class='card' > 
   <div class="card-body">
-    <p data-bs-toggle="modal" data-bs-target="#exampleModal" id="infoButton" v-on:click="openDescription">&#9432;</p>
+    <p data-bs-toggle="modal" id="infoButton" v-on:click="openDescription">&#9432;</p>
     <div v-bind:style="{backgroundImage: 'url(' + moviePoster + ')'}" id='poster'></div>
     <h5 id='movieTitle' class="card-title">{{ movieTitle }} <span id='movieYear'>{{ movieYear }}</span></h5>
 
@@ -116,10 +193,20 @@
     </div>
 
     <br>
+    <div class="d-flex gap-2">
     <button v-on:click="openRating" class="btn btn-outline-secondary">Rate</button>
+    <button v-on:click="openShare" id="shareButton" class="btn btn-outline-secondary">Share</button>
+    </div>
   </div>
 </div>
-  
+</div>
+
+<div id="errorContainer" v-bind:class="{ 'd-block': error }">
+<div class="alert alert-danger" role="alert">
+  Movie Not Found
+</div>
+</div>
+
 <a href='https://github.com/adeoladev/rateflix' target='_blank'><img style='width:30px' src='images/github.png'></a> 
 </div>
 <!-------------------------------------------------------->
