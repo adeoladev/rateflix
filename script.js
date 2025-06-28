@@ -37,6 +37,8 @@ var application = new Vue({
             url.searchParams.set('s', this.inputTitle);
             if(this.inputYear) {
             url.searchParams.set('y', this.inputYear);
+            } else {
+            url.searchParams.delete('y');    
             }
             window.history.replaceState({}, '', url.href);
             document.title = `Rateflix - "${this.inputTitle+this.inputYear}"`;

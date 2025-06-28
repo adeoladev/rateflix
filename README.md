@@ -3,6 +3,7 @@
 [https://adeoladev.github.io/rateflix](https://adeoladev.github.io/rateflix)
 
 A minimalist single-page application for viewing movie/tv-show ratings.
+Powered by OMDb API. 
 
 ## License
-MIT. Copyright (c) 2022 Adeola Boye.
+MIT. Copyright (c) 2025 Adeola Boye.

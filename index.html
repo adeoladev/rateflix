@@ -149,7 +149,7 @@
 <a href='/rateflix'><img id='logo' src='images/logo.png'></a><br>
 <div class="input-group mb-3">
 <span class='input-group-text accountBtn' v-on:click="openAccount" id='basic-addon1'>{{ displayUsername }}</span>
-<input type="text" v-model="inputTitle" class="form-control" placeholder="Movie/Series Title" aria-label="Username" aria-describedby="basic-addon1">
+<input type="text" v-model="inputTitle" class="form-control" placeholder="Movie/Series Title" aria-label="Username" aria-describedby="basic-addon1" required>
 <input type="text" v-model="inputYear" class="form-control" placeholder="Year (optional)" minlength="4" maxlength="4" aria-label="Username" aria-describedby="basic-addon1">
 <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
 </div>
