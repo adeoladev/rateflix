@@ -31,6 +31,24 @@ var application = new Vue({
         }
         this.fetchdata();
         },
+        apiCall:function() {
+        if (this.inputTitle.length >= 3) {
+        axios.request('https://www.omdbapi.com/?apikey=6576687f&type=movie&s='+this.inputTitle).then(function (response) {
+            $("#list-autocomplete").empty();
+            response.data.Search.forEach((element) => {
+            const opt = document.createElement('option');
+            opt.value = element.Title;
+            opt.innerHTML = element.Title;
+            $("#list-autocomplete").append(opt);
+            }
+            );
+        }).catch(function (error) {
+            console.log(error);
+        });
+        } else {
+            $("#list-autocomplete").empty();
+        }
+        },
 
         fetchdata:function() {
             const url = new URL(window.location.href);
