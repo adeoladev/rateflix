@@ -1,14 +1,8 @@
 #infoButton {
-    top: 1px;
-    position: absolute;
-    right: 10px;
+    margin-top: -4px;
     font-size: 20px;
     color: gray;
     cursor: pointer;
-}
-
-#shareButton {
-    display:none;
 }
 
 .source {
@@ -52,10 +46,17 @@
     flex-direction:column;
 }
 
-#cardContainer {
+#mainContainer {
+    display:flex;
+    width: 50%;
+    gap: 10px;
+}
+
+.cardContainer {
     display:none;
     width: 50%;
     margin-bottom: 20px;
+    flex:auto;
 }
 
 #errorContainer {
@@ -102,12 +103,33 @@ h1 {
     display:none;
 }
 
+#movieTitle {
+    max-width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right:40px;
+}
+
+#cardHeader {
+    display: flex;
+    justify-content: flex-end;
+    height: 0;
+    gap: 5px;
+    position: relative;
+    z-index: 2;
+}
+
 @media (max-width: 780px) {
 #mainForm {
     width:80%;
 }
-#cardContainer {
+#mainContainer {
     width: 80%;
+    flex-direction:column;
+}
+.cardContainer {
+    width:100%;
 }
 #shareButton {
     display:block;

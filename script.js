@@ -3,16 +3,40 @@ var application = new Vue({
     data: {
       inputTitle: '',
       inputYear:'',
-      moviePoster:'',
+      moviePoster: {
+          1: '',
+          2: ''
+      },
       yearProcessed:'',
-      movieTitle:'',
-      movieYear:'',
+      movieTitle: {
+          1: 'Title',
+          2: 'Title'
+      },
+      movieYear: {
+          1: 'Year',
+          2: 'Year'
+      },
       movieID:'',
-      movieDescription:'',
-      rottenTomatoes:'0',
-      imdb:'0',
-      metacritic:'0',
-      rateflix:0,
+      movieDescription:{
+          1: '',
+          2: ''
+      },
+      rottenTomatoes: {
+          1: '0',
+          2: '0%'
+      },
+      imdb:{
+          1: '0',
+          2: '0'
+      },
+      metacritic: {
+          1: '0',
+          2: '0'
+      },
+      rateflix: {
+          1: 0,
+          2: 0
+      },
       error: false,
       result: false,
       username: '',
@@ -21,6 +45,8 @@ var application = new Vue({
       userRating: 0,
       showMessage: '',
       message: '',
+      compare: false,
+      selectedCard: 1
     },
     methods: {
         submitForm:function() {
@@ -43,7 +69,7 @@ var application = new Vue({
             }
             );
         }).catch(function (error) {
-            console.log(error);
+            //console.log(error);
         });
         } else {
             $("#list-autocomplete").empty();
@@ -60,50 +86,49 @@ var application = new Vue({
             }
             window.history.replaceState({}, '', url.href);
             document.title = `Rateflix - "${this.inputTitle+this.inputYear}"`;
-
-            this.rottenTomatoes = '0';
-            this.imdb = '0';
-            this.metacritic = '0';
-            this.rateflix = 0;
+            this.rottenTomatoes[this.selectedCard] = '0%';
+            this.imdb[this.selectedCard] = '0';
+            this.metacritic[this.selectedCard] = '0';
+            this.rateflix[this.selectedCard] = 0;
             const that = this;
             axios.request('https://www.omdbapi.com/?apikey=6576687f&t='+this.inputTitle+this.yearProcessed).then(function (response) {
             if (response.data.Response !== 'False') {
             that.error = false;
             that.result = true;
-            that.moviePoster = response.data.Poster;
-            that.movieTitle = response.data.Title;
+            that.moviePoster[that.selectedCard] = response.data.Poster;
+            that.movieTitle[that.selectedCard] = response.data.Title;
             that.movieID = response.data.imdbID;
-            that.movieDescription = response.data.Plot;
+            that.movieDescription[that.selectedCard] = response.data.Plot;
             if (response.data.Type == 'movie') {
-            that.movieYear = response.data.Year;
-            that.rottenTomatoes = response.data.Ratings?.[1]?.Value ?? '0%';
+            that.movieYear[that.selectedCard] = response.data.Year;
+            that.rottenTomatoes[that.selectedCard] = response.data.Ratings?.[1]?.Value ?? '0%';
             if(response.data.Metascore !== "N/A") {
-                that.metacritic = response.data.Metascore;
+                that.metacritic[that.selectedCard] = response.data.Metascore;
             }
             if(response.data.imdbRating !== "N/A") {
-                that.imdb = response.data.imdbRating * 10;
+                that.imdb[that.selectedCard] = response.data.imdbRating * 10;
             }
             } else {
-            that.rottenTomatoes = '0%';
-            that.metacritic = 0;
-            that.imdb = response.data.imdbRating * 10;
-            that.movieYear = response.data.Released.slice(7) + " ("+response.data.totalSeasons+" Seasons)";
+            that.rottenTomatoes[that.selectedCard] = '0%';
+            that.metacritic[that.selectedCard] = 0;
+            that.imdb[that.selectedCard] = response.data.imdbRating * 10;
+            that.movieYear[that.selectedCard] = response.data.Released.slice(7) + " ("+response.data.totalSeasons+" Seasons)";
             }
 
-            setTimeout(rateflixRating, 200);
+            setTimeout(rateflixRating, 100);
 
             function rateflixRating() {
             axios.request('https://gamergoal.net/rateflix/core/rating.php?movie='+that.movieID).then(function (response) {
-            that.rateflix = response.data.rating;
+            that.rateflix[that.selectedCard] = response.data.rating;
             return response;
             }).catch(function () {
-            that.rateflix = 0;
+            that.rateflix[that.selectedCard] = 0;
             });
             }
 
             } else {
             that.error = true;
-            that.result = false;
+            that.result = true;
             }
 
         }).catch(function (error) {
@@ -145,10 +170,10 @@ var application = new Vue({
             axios.post('https://gamergoal.net/rateflix/core/rate.php?username='+this.username+'&rating='+this.userRating+'&movie='+this.movieID).then(function (response) {
 
             axios.request('https://gamergoal.net/rateflix/core/rating.php?movie='+that.movieID).then(function (response) {
-            that.rateflix = response.data.rating;
+            that.rateflix[1] = that.userRating*10;
             return response;
             }).catch(function (error) {
-            that.rateflix = 0;
+            that.error = true;
             });
 
         }).catch(function (error) {
@@ -176,6 +201,24 @@ var application = new Vue({
             $("#infoModal").modal('show');
         },
 
+        openCompare:function() {
+            this.compare = !this.compare;
+            if (this.compare === false) {
+            this.selectedCard = 1;
+            } else {
+            this.selectedCard = 2;
+            }
+        },
+
+        selectCard:function(card) {
+            this.selectedCard = card;
+            if(card === 1) {
+            $("#checkBox2").prop('checked',false);
+            } else {
+            $("#checkBox1").prop('checked',false);
+            }
+        },
+
         signOut:function() {
             document.cookie = `rateflix=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
             location.reload();
@@ -193,7 +236,7 @@ var application = new Vue({
             }
         },
 
-        async openShare() {
+        /*async openShare() {
             if (navigator.share) {
                 try {
                   await navigator.share({
@@ -207,7 +250,7 @@ var application = new Vue({
             } else {
             alert("Sharing is not supported in this browser.");
             }
-        }
+        }*/
     },
 
     created: function(){

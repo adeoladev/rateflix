@@ -54,12 +54,12 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="infoModalLabel">{{ movieTitle }} <span id='movieYear'>{{ movieYear }}</span></h5>
+        <h5 class="modal-title" id="infoModalLabel">{{ movieTitle[1] }} <span id='movieYear'>{{ movieYear[1] }}</span></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body d-flex justify-content-evenly">
-        {{ movieDescription }}
+        {{ movieDescription[1] }}
         <br>
       </div>
 
@@ -91,7 +91,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="ratingsModalLabel">Rate {{ movieTitle }}</h5>
+        <h5 class="modal-title" id="ratingsModalLabel">Rate {{ movieTitle[1] }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body d-flex justify-content-evenly">
@@ -159,48 +159,96 @@
 
 <br>
 
-<div id="cardContainer" v-bind:class="{ 'd-block': result }">
+<div id="mainContainer">
+<div class="cardContainer" v-bind:class="{ 'd-block': movieID }">
 <div class='card' > 
   <div class="card-body">
-    <p data-bs-toggle="modal" id="infoButton" v-on:click="openDescription">&#9432;</p>
-    <div v-bind:style="{backgroundImage: 'url(' + moviePoster + ')'}" id='poster'></div>
-    <h5 id='movieTitle' class="card-title">{{ movieTitle }} <span id='movieYear'>{{ movieYear }}</span></h5>
+      <div id="cardHeader">
+      <p data-bs-toggle="modal" id="infoButton" v-on:click="openDescription">&#9432;</p>
+      <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="checkBox1" @change="selectCard(1)" v-if="compare">
+      </div>
+    <div v-bind:style="{backgroundImage: 'url(' + moviePoster[1] + ')'}" id='poster'></div>
+    <h5 id='movieTitle' class="card-title">{{ movieTitle[1] }} <span id='movieYear'>{{ movieYear[1] }}</span></h5>
 
     <div class='preProgress'>
-    <p class='progSource'>Rotten Tomatoes <strong>{{ rottenTomatoes }}</strong></p>
+    <p class='progSource'>Rotten Tomatoes <strong>{{ rottenTomatoes[1] }}</strong></p>
     <div class="progress">
-    <div class="progress-bar bg-danger" role="progressbar" v-bind:style="{width: rottenTomatoes}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
-    </div>
-
-    <div class='preProgress'>
-    <p class='progSource'>IMDB <strong>{{ imdb }}%</strong></p>
-    <div class="progress">
-    <div class="progress-bar bg-warning" role="progressbar" v-bind:style="{width: imdb+'%'}" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="progress-bar bg-danger" role="progressbar" v-bind:style="{width: rottenTomatoes[1]}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
     </div>
 
     <div class='preProgress'>
-    <p class='progSource'>Metacritic <strong>{{ metacritic }}%</strong></p>
+    <p class='progSource'>IMDB <strong>{{ imdb[1] }}%</strong></p>
     <div class="progress">
-    <div class="progress-bar bg-success" role="progressbar" v-bind:style="{width: metacritic+'%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="progress-bar bg-warning" role="progressbar" v-bind:style="{width: imdb[1]+'%'}" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
     </div>
 
     <div class='preProgress'>
-    <p class='progSource'>Rateflix <strong>{{ rateflix }}%</strong></p>
+    <p class='progSource'>Metacritic <strong>{{ metacritic[1] }}%</strong></p>
     <div class="progress">
-    <div class="progress-bar" role="progressbar" v-bind:style="{width: rateflix+'%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="progress-bar bg-success" role="progressbar" v-bind:style="{width: metacritic[1]+'%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+    </div>
+
+    <div class='preProgress'>
+    <p class='progSource'>Rateflix <strong>{{ rateflix[1] }}%</strong></p>
+    <div class="progress">
+    <div class="progress-bar" role="progressbar" v-bind:style="{width: rateflix[1]+'%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
     </div>
 
     <br>
     <div class="d-flex gap-2">
     <button v-on:click="openRating" class="btn btn-outline-secondary">Rate</button>
-    <button v-on:click="openShare" id="shareButton" class="btn btn-outline-secondary">Share</button>
+    <button v-on:click="openCompare"  class="btn btn-outline-secondary">Compare</button>
     </div>
   </div>
 </div>
+</div>
+
+<!-------------COMPARISON CONTAINER------------->
+
+<div class="cardContainer" v-bind:class="{ 'd-block': compare }">
+  <div class='card'> 
+    <div class="card-body">
+        <div id="cardHeader">
+        <input v-if="compare" class="form-check-input" type="checkbox" name="flexRadioDefault" id="checkBox2" @change="selectCard(2)" checked>
+        </div>
+      <div v-bind:style="{backgroundImage: 'url(' + moviePoster[2] + ')'}" id='poster'></div>
+      <h5 id='movieTitle' class="card-title">{{ movieTitle[2] }} <span id='movieYear'>{{ movieYear[2] }}</span></h5>
+  
+      <div class='preProgress'>
+      <p class='progSource'>Rotten Tomatoes <strong>{{ rottenTomatoes[2] }}</strong></p>
+      <div class="progress">
+      <div class="progress-bar bg-danger" role="progressbar" v-bind:style="{width: rottenTomatoes[2]}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      </div>
+  
+      <div class='preProgress'>
+      <p class='progSource'>IMDB <strong>{{ imdb[2] }}%</strong></p>
+      <div class="progress">
+      <div class="progress-bar bg-warning" role="progressbar" v-bind:style="{width: imdb[2]+'%'}" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      </div>
+  
+      <div class='preProgress'>
+      <p class='progSource'>Metacritic <strong>{{ metacritic[2] }}%</strong></p>
+      <div class="progress">
+      <div class="progress-bar bg-success" role="progressbar" v-bind:style="{width: metacritic[2]+'%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      </div>
+  
+      <div class='preProgress'>
+      <p class='progSource'>Rateflix <strong>{{ rateflix[2] }}%</strong></p>
+      <div class="progress">
+      <div class="progress-bar" role="progressbar" v-bind:style="{width: rateflix[2]+'%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      </div>
+
+    </div>
+  </div>
+  </div>
 </div>
 
 <div id="errorContainer" v-bind:class="{ 'd-block': error }">
