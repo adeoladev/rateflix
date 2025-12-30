@@ -73,9 +73,16 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="accountModalLabel">{{ displayUsername }}</h5>
+        <h5 class="modal-title" id="accountModalLabel">{{ displayUsername }} <span id='movieYear'>{{ userYear }}</span></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
+      <ul class="list-group m-3">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Ratings
+            <span class="badge bg-primary rounded-pill">{{ userRatings }}</span>
+          </li>
+        </ul>
 
       <div class="modal-footer">
         <button type="button" v-on:click="signOut" class="btn btn-secondary">Sign Out</button>

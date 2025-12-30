@@ -21,7 +21,11 @@ require 'connect.php';
     } 
     
     if (password_verify($password, $user['password'])) {
-      $data = array("message" => "Sign in successful.");
+      $ratingQuery = mysqli_query($conn,"SELECT * FROM ratings WHERE username='$username'");
+      $ratings = mysqli_num_rows($ratingQuery);
+      
+      $year = date('Y', strtotime($user['created_at']));
+      $data = array("message" => "Sign in successful.", "year" => $year, "ratings" => $ratings);
       header("Content-Type: application/json");
       echo json_encode($data);
       exit();

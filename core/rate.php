@@ -6,6 +6,8 @@ session_start();
 $rating = $_GET['rating'];
 $username = $_GET['username'];
 $movie = $_GET['movie'];
+$title = $_GET['title'];
+$year = $_GET['year'];
 $date = date("F j, Y h:i a");
 
 if ($rating > 10 || $rating < 0 || empty($rating)) {
@@ -24,8 +26,8 @@ if ($already->num_rows>0) {
     header("HTTP/1.0 200 Success");
     exit();
 } else {
-    $stmt = $conn->prepare("INSERT INTO ratings (username, imdb_id, rating) VALUES (?, ?, ?)");
-    $stmt->bind_param("ssi", $username, $movie, $rating);
+    $stmt = $conn->prepare("INSERT INTO ratings (username, imdb_id, rating, title, year) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssiss", $username, $movie, $rating, $title, $year);
     $stmt->execute();
     $stmt->close();
     $conn->close();
