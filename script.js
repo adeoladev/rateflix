@@ -145,7 +145,8 @@ var application = new Vue({
             that.showMessage = 'block';
             that.message = response.data.message;
             if(that.message == "Sign up successful.") {
-            document.cookie = "rateflix="+that.username;
+            const currentYear = new Date().getFullYear();
+            document.cookie = "rateflix="+JSON.stringify({username: that.username, year: currentYear, ratings: 0});
             location.reload();
             }
         }).catch(function (error) {
